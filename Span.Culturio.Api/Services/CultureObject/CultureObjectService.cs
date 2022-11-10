@@ -1,0 +1,48 @@
+﻿using System;
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using Span.Culturio.Api.Data;
+using Span.Culturio.Api.Models;
+
+namespace Span.Culturio.Api.Services.CultureObject
+{
+	public class CultureObjectService : ICultureObjectService
+	{
+
+		private readonly DataContext _context;
+		private readonly IMapper _mapper;
+		
+
+		public CultureObjectService(DataContext context, IMapper mapper)
+		{
+			_context = context;
+			_mapper = mapper;
+		
+		}
+
+		public async Task<IEnumerable<CultureObjectDto>> GetCultureObjects()
+		{
+			var cultureObjects = await _context.CultureObjects.ToListAsync();
+			var cultureObjectsDto = _mapper.Map<List<CultureObjectDto>>(cultureObjects);
+			return cultureObjectsDto;
+		}
+
+		public async Task<CultureObjectDto> GetCultureObject(int id)
+		{
+			var cultureObject = await _context.CultureObjects.FindAsync(id);
+			var cultureObjectDto = _mapper.Map<CultureObjectDto>(cultureObject);
+			return cultureObjectDto;
+		}
+
+
+
+		public async Task<CultureObjectDto> CreateCultureObject(CultureObjectDto cultureObject)
+		{
+			var cultureObjectEntity = _mapper.Map<Data.Entities.CultureObject>(cultureObject);
+			_context.CultureObjects.Add(cultureObjectEntity);
+			await _context.SaveChangesAsync();
+			return cultureObject;
+		}
+	}
+}
+
