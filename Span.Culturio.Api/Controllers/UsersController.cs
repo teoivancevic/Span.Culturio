@@ -27,23 +27,22 @@ namespace Span.Culturio.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<UserDto>>> GetUsers()
+        public async Task<ActionResult<List<UserDto>>> GetUsers([FromQuery] int pageSize, [FromQuery] int pageIndex)
         {
-            List<UserDto> users = new()
-            {
-                new UserDto
-                {
-                    Id = 1,
-                    FirstName = "teo",
-                    LastName = "ivan",
-                    Email = "t@t",
-                    Username = "tivanc"
-                    
-                    
-                }
-            };
-
+            var users = await _userService.GetUsers();
             return Ok(users);
+        }
+
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<UserDto>> GetUser(int id)
+        {
+            var user = await _userService.GetUser(id);
+            if(user is null)
+            {
+                return BadRequest("User not found.");
+            }
+            return Ok(user);
         }
     }
 }

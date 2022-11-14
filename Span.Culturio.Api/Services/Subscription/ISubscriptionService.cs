@@ -7,9 +7,9 @@ namespace Span.Culturio.Api.Services.Subscription
 	{
 		public Task<IEnumerable<SubscriptionDto>> GetSubscriptions(int id);
 
-		public Task<CreateSubscriptionDto> CreateSubscription(CreateSubscriptionDto subscription);
+		public Task<SubscriptionDto> CreateSubscription(CreateSubscriptionDto subscription);
 		public Task<TrackVisitDto> TrackVisit(TrackVisitDto visit);
-		public Task<SubscriptionDto> ActivateSubscription(int id);
+		public Task<SubscriptionDto> ActivateSubscription(ActivateSubscriptionDto activateSubscription);
 	}
 }
 

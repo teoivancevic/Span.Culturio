@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
+using Span.Culturio.Api.Models;
 using Span.Culturio.Api.Services.CultureObject;
 using Span.Culturio.Api.Services.Package;
 
@@ -18,6 +19,30 @@ namespace Span.Culturio.Api.Controllers
             _logger = logger;
             _cultureObjectService = cultureObjectService;
             _configuration = configuration;
+        }
+
+
+        [HttpGet]
+        public async Task<ActionResult<List<CultureObjectDto>>> GetCultureObjects()
+        {
+            var cultureObjects = await _cultureObjectService.GetCultureObjects();
+            return Ok(cultureObjects);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CultureObjectDto>> GetCultureObject(int id)
+        {
+            var cultureObject = await _cultureObjectService.GetCultureObject(id);
+            return Ok(cultureObject);
+        }
+
+
+        [HttpPost]
+        public async Task<ActionResult<CultureObjectDto>> CreateCultureObject([FromBody] CreateCultureObjectDto cultureObject)
+        {
+            var cultureObjectDto = await _cultureObjectService.CreateCultureObject(cultureObject);
+            return cultureObjectDto;
+
         }
 
 

@@ -36,12 +36,17 @@ namespace Span.Culturio.Api.Services.CultureObject
 
 
 
-		public async Task<CultureObjectDto> CreateCultureObject(CultureObjectDto cultureObject)
+		public async Task<CultureObjectDto> CreateCultureObject(CreateCultureObjectDto cultureObject)
 		{
+			//var cultureObjectDto = _mapper.Map<CultureObjectDto>(cultureObject);
+			//cultureObjectDto.Id = 0;
 			var cultureObjectEntity = _mapper.Map<Data.Entities.CultureObject>(cultureObject);
+			//cultureObjectEntity.Id = 0;
 			_context.CultureObjects.Add(cultureObjectEntity);
 			await _context.SaveChangesAsync();
-			return cultureObject;
+
+			var cultureObjectDto = _mapper.Map<CultureObjectDto>(cultureObjectEntity);
+			return cultureObjectDto;
 		}
 	}
 }

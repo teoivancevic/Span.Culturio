@@ -8,7 +8,7 @@ namespace Span.Culturio.Api.Services.CultureObject
         Task<IEnumerable<CultureObjectDto>> GetCultureObjects();
         Task<CultureObjectDto> GetCultureObject(int id);
 
-        Task<CultureObjectDto> CreateCultureObject(CultureObjectDto cultureObject);
+        Task<CultureObjectDto> CreateCultureObject(CreateCultureObjectDto cultureObject);
     }
 }
 

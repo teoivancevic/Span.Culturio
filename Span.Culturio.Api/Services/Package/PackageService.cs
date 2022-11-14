@@ -12,13 +12,13 @@ namespace Span.Culturio.Api.Services.Package
         
         private readonly DataContext _context;
         private readonly IMapper _mapper;
-        //private readonly IAccountService _accountService;
+        
 
-        public PackageService(DataContext context, IMapper mapper/*, IAccountService accountService*/)
+        public PackageService(DataContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
-            //_accountService = accountService;
+            
         }
 
         
@@ -28,7 +28,41 @@ namespace Span.Culturio.Api.Services.Package
             var packagesDto = _mapper.Map<List<PackageDto>>(packages);
             return packagesDto;
         }
-        
+
+        public async Task<PackageDto> GetPackage(int id)
+        {
+            var package = await _context.Packages.FindAsync(id);
+            package.CultureObjects = await _context.PackageCultureObjects.Where(x => x.PackageId.Equals(package.Id)).ToListAsync();
+            var packageDto = _mapper.Map<PackageDto>(package);
+            return packageDto;
+        }
+
+        public async Task<PackageDto> CreatePackage(CreatePackageDto package)
+        {
+            var packageEntity = _mapper.Map<Data.Entities.Package>(package);
+            _context.Packages.Add(packageEntity);
+
+            await _context.SaveChangesAsync();
+
+            var packageDto = _mapper.Map<PackageDto>(packageEntity);
+            return packageDto;
+        }
+
+
+
+
+        public async Task<PackageCultureObjectDto> CreatePackageCultureObject(CreatePackageCultureObjectDto packageCultureObject)
+        {
+            var packageCultureObjectEntity = _mapper.Map<Data.Entities.PackageCultureObject>(packageCultureObject);
+            _context.PackageCultureObjects.Add(packageCultureObjectEntity);
+
+            await _context.SaveChangesAsync();
+
+            var packageCultureObjectDto = _mapper.Map<PackageCultureObjectDto>(packageCultureObjectEntity);
+            return packageCultureObjectDto;
+        }
+
+
 
 
     }

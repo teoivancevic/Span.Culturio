@@ -20,7 +20,7 @@ namespace Span.Culturio.Api.Controllers
         private readonly IConfiguration _configuration;
         //private readonly IAccountService _accountService;
 
-        public AuthController(ILogger<AuthController> logger, IUserService userService, IConfiguration configuration/*, IAccountService accountService*/)
+        public AuthController(ILogger<AuthController> logger, IUserService userService, IConfiguration configuration)
         {
             _logger = logger;
             _userService = userService;
@@ -29,23 +29,35 @@ namespace Span.Culturio.Api.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<UserDto>> RegisterUser([FromBody] UserDto user)
+        public async Task<ActionResult<UserDto>> RegisterUser([FromBody] RegisterUserDto user)
         {
             //nezz kako treba ovo napravit, dal treba bit registerUserDto kojeg mapiram u setrvisu ili da samo svugdje koristim UserDto
-            
+            //var user = _userService.GetUser()
             await _userService.CreateUser(user);
             return Ok(user);
         }
 
 
-
+        
         [HttpPost("login")]
-        public async Task<ActionResult<string>> Login(LoginDto login)
+        public async Task<ActionResult<string>> Login([FromBody] LoginDto login)
         {
-            //ovo ce bit veselo za napravit...
-            return "test";
+            var user = await _userService.GetUserByUsername(login.Username);
+            if(user is null)
+            {
+                return BadRequest("User not found");
+            }
 
+            var verifyLogin = await _userService.Login(user, login.Password); 
+            if (!verifyLogin)
+            {
+                return BadRequest("Wrong password");
+            }
+
+            string token = CreateToken(login);
+            return Ok(token);
         }
+        
 
 
         private string CreateToken(LoginDto login)

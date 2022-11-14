@@ -1,0 +1,73 @@
+﻿<Properties StartupConfiguration="{20413C37-516C-4A4C-99C4-DED8109753A9}|Default">
+  <MonoDevelop.Ide.ItemProperties.Span.Culturio.Api PreferredExecutionTarget="/Volumes/Google Chrome/Google Chrome.app" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Span.Culturio.Api/Controllers/PackagesController.cs">
+    <Files>
+      <File FileName="Span.Culturio.Api/Controllers/UsersController.cs" Line="30" Column="101" />
+      <File FileName="Span.Culturio.Api/Program.cs" Line="69" Column="18" />
+      <File FileName="Span.Culturio.Api/Models/UserDto.cs" Line="4" Column="25" />
+      <File FileName="Span.Culturio.Api/Services/User/UserService.cs" Line="78" Column="15" />
+      <File FileName="Span.Culturio.Api/Services/User/IUserService.cs" Line="11" Column="34" />
+      <File FileName="Span.Culturio.Api/Controllers/AuthController.cs" Line="36" Column="38" />
+      <File FileName="Span.Culturio.Api/Controllers/CultureObjectsController.cs" Line="37" Column="10" />
+      <File FileName="Span.Culturio.Api/Controllers/PackagesController.cs" Line="42" Column="48" />
+      <File FileName="Span.Culturio.Api/Controllers/SubscriptionsController.cs" Line="37" Column="14" />
+      <File FileName="Span.Culturio.Api/Models/PackageDto.cs" Line="1" Column="1" />
+      <File FileName="Span.Culturio.Api/Models/RegisterUserDto.cs" Line="1" Column="1" />
+      <File FileName="Span.Culturio.Api/Services/CultureObject/CultureObjectService.cs" Line="46" Column="28" />
+      <File FileName="Span.Culturio.Api/Services/CultureObject/ICultureObjectService.cs" Line="11" Column="74" />
+      <File FileName="Span.Culturio.Api/Data/Entities/User.cs" Line="33" Column="31" />
+      <File FileName="Span.Culturio.Api/Models/TrackVisitDto.cs" Line="1" Column="1" />
+      <File FileName="Span.Culturio.Api/Services/Subscription/SubscriptionService.cs" Line="9" Column="37" />
+      <File FileName="Span.Culturio.Api/Services/Subscription/ISubscriptionService.cs" Line="10" Column="30" />
+      <File FileName="Span.Culturio.Api/Data/Entities/Subscription.cs" Line="1" Column="1" />
+      <File FileName="Span.Culturio.Api/Models/SubscriptionDto.cs" Line="1" Column="1" />
+      <File FileName="Span.Culturio.Api/Data/DataContext.cs" Line="1" Column="1" />
+      <File FileName="Span.Culturio.Api/Models/CultureObjectDto.cs" Line="1" Column="1" />
+      <File FileName="Span.Culturio.Api/Data/Entities/Package.cs" Line="1" Column="1" />
+      <File FileName="Span.Culturio.Api/Models/ActivateSubscriptionDto.cs" Line="1" Column="1" />
+      <File FileName="Span.Culturio.Api/Models/CreateCultureObjectDto.cs" Line="1" Column="1" />
+      <File FileName="Span.Culturio.Api/Models/CreateSubscriptionDto.cs" Line="1" Column="1" />
+      <File FileName="Span.Culturio.Api/appsettings.json" Line="13" Column="46" />
+      <File FileName="Span.Culturio.Api/Helpers/UserHelper.cs" Line="1" Column="1" />
+      <File FileName="Span.Culturio.Api/Properties/launchSettings.json" Line="15" Column="1" />
+      <File FileName="Span.Culturio.Api/Services/Package/PackageService.cs" Line="40" Column="1" />
+      <File FileName="Span.Culturio.Api/Profiles/UserProfile.cs" Line="19" Column="4" />
+      <File FileName="Span.Culturio.Api/Profiles/SubscriptionProfile.cs" Line="17" Column="53" />
+      <File FileName="Span.Culturio.Api/Profiles/CultureObjectProfile.cs" Line="17" Column="55" />
+      <File FileName="Span.Culturio.Api/Profiles/PackageProfile.cs" Line="13" Column="37" />
+      <File FileName="Span.Culturio.Api/Services/Package/IPackageService.cs" Line="10" Column="60" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Span.Culturio" expanded="True">
+            <Node name="Span.Culturio.Api" expanded="True">
+              <Node name="Controllers" expanded="True">
+                <Node name="PackagesController.cs" selected="True" />
+              </Node>
+              <Node name="Data" expanded="True">
+                <Node name="Entities" expanded="True" />
+              </Node>
+              <Node name="Helpers" expanded="True" />
+              <Node name="Models" expanded="True" />
+              <Node name="Profiles" expanded="True" />
+              <Node name="Properties" expanded="True" />
+              <Node name="Services" expanded="True">
+                <Node name="CultureObject" expanded="True" />
+                <Node name="Package" expanded="True" />
+                <Node name="Subscription" expanded="True" />
+                <Node name="User" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+</Properties>

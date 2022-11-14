@@ -6,8 +6,9 @@ namespace Span.Culturio.Api.Services.User
     {
         Task<IEnumerable<UserDto>> GetUsers();
         Task<UserDto> GetUser(int id);
+        Task<UserDto> GetUserByUsername(string username);
 
-        Task<UserDto> CreateUser(UserDto user);
+        Task<UserDto> CreateUser(RegisterUserDto user);
         Task<bool> Login(UserDto user, string password);
 
     }
