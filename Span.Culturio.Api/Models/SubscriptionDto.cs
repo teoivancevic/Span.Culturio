@@ -3,7 +3,7 @@ namespace Span.Culturio.Api.Models
 {
     public class SubscriptionDto
     {
-        //public int Id { get; set; }
+        public int Id { get; set; }
         public int UserId { get; set; }
         public int PackageId { get; set; }
         public string Name { get; set; }

@@ -12,7 +12,7 @@ namespace Span.Culturio.Api.Data.Entities
 
         //nezz dal se ovo ovako radi
         
-        public string ValidDays { get; set; }
+        public int ValidDays { get; set; }
 
         public virtual ICollection<PackageCultureObject> CultureObjects { get; set; }
     }

@@ -33,15 +33,23 @@ namespace Span.Culturio.Api.Controllers
         public async Task<ActionResult<CultureObjectDto>> GetCultureObject(int id)
         {
             var cultureObject = await _cultureObjectService.GetCultureObject(id);
+            if(cultureObject is null)
+            {
+                return NotFound("Culture Object not found.");
+            }
             return Ok(cultureObject);
         }
 
 
         [HttpPost]
-        public async Task<ActionResult<CultureObjectDto>> CreateCultureObject([FromBody] CreateCultureObjectDto cultureObject)
+        public async Task<ActionResult> CreateCultureObject([FromBody] CreateCultureObjectDto cultureObject)
         {
             var cultureObjectDto = await _cultureObjectService.CreateCultureObject(cultureObject);
-            return cultureObjectDto;
+            if(cultureObjectDto is null)
+            {
+                return BadRequest("Could not create Culture Object.");
+            }
+            return Ok();
 
         }
 

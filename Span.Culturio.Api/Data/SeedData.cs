@@ -16,13 +16,13 @@ namespace Span.Culturio.Api.Data
 			{
 				Id = 1,
 				Name = "Muzeji",
-				ValidDays = "30"
+				ValidDays = 30
 			},
 			new Package
 			{
                 Id = 2,
                 Name = "Premium",
-                ValidDays = "365"
+                ValidDays = 365
             });
 
 

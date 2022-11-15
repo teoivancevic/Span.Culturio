@@ -38,22 +38,27 @@ namespace Span.Culturio.Api.Controllers
         public async Task<ActionResult<PackageDto>> GetPackage(int id)
         {
             var package = await _packageService.GetPackage(id);
+            if(package is null)
+            {
+                return BadRequest("Package not found.");
+            }
+
             return Ok(package);
         }
 
         [HttpPost]
-        public async Task<ActionResult<PackageDto>> CreatePackage([FromBody] CreatePackageDto package)
+        public async Task<ActionResult> CreatePackage([FromBody] CreatePackageDto package)
         {
             await _packageService.CreatePackage(package);
-            return Ok(package);
+            return Ok();
         }
 
         
         [HttpPost("culture-object")]
-        public async Task<ActionResult<PackageCultureObjectDto>> CreatePackageCultureObject([FromBody] CreatePackageCultureObjectDto packageCultureObject)
+        public async Task<ActionResult> CreatePackageCultureObject([FromBody] CreatePackageCultureObjectDto packageCultureObject)
         {
             await _packageService.CreatePackageCultureObject(packageCultureObject);
-            return Ok(packageCultureObject);
+            return Ok();
         }
         
 

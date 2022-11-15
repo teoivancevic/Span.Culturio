@@ -7,7 +7,7 @@ namespace Span.Culturio.Api.Models
 	{
         //public int Id { get; set; }
         public string Name { get; set; }
-        public string ValidDays { get; set; }
+        public int ValidDays { get; set; }
 
         //public virtual IEnumerable<PackageCultureObjectDto> CultureObjects { get; set; }
     }

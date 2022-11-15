@@ -51,10 +51,11 @@ namespace Span.Culturio.Api.Services.Subscription
 			var subscription = await _context.Subscriptions.FindAsync(activateSubscription.SubscriptionId);
 			if(subscription is not null && subscription.State != "active")
 			{
-                //var subscriptionEntity = _mapper.Map<Data.Entities.Subscription>(subscription);
+				var package = await _context.Packages.FindAsync(subscription.PackageId);
+
 				subscription.State = "active";
 				subscription.ActiveFrom = DateTime.Now;
-				subscription.ActiveTo = subscription.ActiveFrom.AddDays(30); // recimo da je subscription 30 dana
+				subscription.ActiveTo = subscription.ActiveFrom.AddDays(package.ValidDays); // uzima broj valid dana iz paketa na koji se subscribea
 
 				_context.Subscriptions.Update(subscription);
 				await _context.SaveChangesAsync();
@@ -66,42 +67,37 @@ namespace Span.Culturio.Api.Services.Subscription
             return subscriptionDto;
 		}
 
+
 		public async Task<bool> TrackVisit(CreateTrackVisitDto trackVisit)
 		{
-			//nezz sta ovdije trebam napravit uopce ngl
-
-
 
 			var subscription = await _context.Subscriptions.FindAsync(trackVisit.SubscriptionId);
-			var packageCultureObject = await _context.PackageCultureObjects.Where(x => x.PackageId.Equals(subscription.PackageId)).FirstOrDefaultAsync();
-
-			var availableVisits = packageCultureObject.AvailableVisits;
-			var timesVisited = _context.TrackVisits.Count(x => x.SubscriptionId == trackVisit.SubscriptionId && x.CultureObjectId == trackVisit.CultureObjectId);
-
-
-			//var trackVisitDto = new TrackVisitDto();
-
-
-            if (timesVisited < availableVisits && subscription.State == "active")
+			if(subscription is not null && subscription.ActiveTo >= DateTime.Now && subscription.State == "active")
 			{
-                var trackVisitEntity = _mapper.Map<Data.Entities.TrackVisit>(trackVisit);
-                _context.TrackVisits.Add(trackVisitEntity);
-                await _context.SaveChangesAsync();
+                var packageCultureObject = await _context.PackageCultureObjects.Where(x => x.PackageId.Equals(subscription.PackageId)).FirstOrDefaultAsync();
 
-				//trackVisitDto = _mapper.Map<TrackVisitDto>(trackVisitEntity);
-				return true;
+				if (packageCultureObject is null)
+				{
+					return false;
+				}
 
+                var availableVisits = packageCultureObject.AvailableVisits;
+                var timesVisited = _context.TrackVisits.Count(x => x.SubscriptionId == trackVisit.SubscriptionId && x.CultureObjectId == trackVisit.CultureObjectId);
+
+
+                if (timesVisited < availableVisits)
+                {
+                    var trackVisitEntity = _mapper.Map<Data.Entities.TrackVisit>(trackVisit);
+                    trackVisitEntity.TimeEntered = DateTime.Now;
+
+                    _context.TrackVisits.Add(trackVisitEntity);
+                    await _context.SaveChangesAsync();
+
+                    return true;
+
+                }
             }
 			
-
-            //subscription.RecordedVisits = subscription.RecordedVisits + 1;
-
-            //var cultureObject = await _context.CultureObjects.FindAsync(trackVisit.CultureObjectId);
-            //var package = await _context.Packages.Where(x => x.CultureObjects.Contains(trackVisit.cultureObjectId).FirstOrDefaultAsync();
-            //package.CultureObjects.Where(x => x.Id.Equals(trackVisit.cultureObjectId)).
-
-
-
 
             return false;
 		}

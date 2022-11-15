@@ -40,7 +40,7 @@ namespace Span.Culturio.Api.Controllers
             var user = await _userService.GetUser(id);
             if(user is null)
             {
-                return BadRequest("User not found.");
+                return NotFound("User not found.");
             }
             return Ok(user);
         }

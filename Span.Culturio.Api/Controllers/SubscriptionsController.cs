@@ -24,39 +24,49 @@ namespace Span.Culturio.Api.Controllers
 		public async Task<ActionResult<List<SubscriptionDto>>> GetSubscriptions(int userId)
 		{
 			var subscriptions = await _subscriptionService.GetSubscriptions(userId);
+
 			return Ok(subscriptions);
 		}
 
 		[HttpPost]
-		public async Task<ActionResult<SubscriptionDto>> CreateSubscription([FromBody] CreateSubscriptionDto subscription)
+		public async Task<ActionResult> CreateSubscription([FromBody] CreateSubscriptionDto subscription)
 		{
 			var subscriptionDto = await _subscriptionService.CreateSubscription(subscription);
-			return Ok(subscriptionDto);
+			if(subscription is null)
+			{
+                return BadRequest("Could not create subscription.");
+            }
+
+			return Ok();
+			
 		}
 
 		[HttpPost("activate")]
-		public async Task<ActionResult<SubscriptionDto>> ActivateSubscription([FromBody] ActivateSubscriptionDto subscription)
+		public async Task<ActionResult> ActivateSubscription([FromBody] ActivateSubscriptionDto subscription)
 		{
 			var subscriptionDto = await _subscriptionService.ActivateSubscription(subscription);
-			return subscriptionDto;
-		}
+			if(subscriptionDto is  null)
+			{
+				return BadRequest("Could not activate subscription.");
+            }
+
+            return Ok();
+
+        }
 
 
-		// Ova API metoda radi, ali na ja mislim glup nacin
-		[HttpPost("track-visit")]
-		public async Task<ActionResult<string>> TrackVisit([FromBody] CreateTrackVisitDto trackVisit)
+        // Ova API metoda radi, ali na ja mislim glup nacin
+        [HttpPost("track-visit")]
+		public async Task<ActionResult> TrackVisit([FromBody] CreateTrackVisitDto trackVisit)
 		{
 
 			var result = await _subscriptionService.TrackVisit(trackVisit);
-			if (result)
+			if (!result)
 			{
-                return Ok("Success.");
-
+                return BadRequest("Invalid request. Subscription already used up all visits to this culture object.\n(also check if input is correct and if subscription is active)");
             }
-			else
-			{
-				return BadRequest("Invalid request. (check if input is correct and if subscription is active)");
-			}
+
+			return Ok();
         }
 		
 
