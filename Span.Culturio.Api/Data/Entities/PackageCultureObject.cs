@@ -12,14 +12,16 @@ namespace Span.Culturio.Api.Data.Entities
 		public int CultureObjectId { get; set; }
 
 		
-		public int AvailableVisits { get; set; }
+		
 
 		[ForeignKey("Package")]
         public int PackageId { get; set; }
         //nezz dal se ovo ovako radi
         //public Package Package { get; set; }
 
-		public virtual Package Package { get; set; }
+        public int AvailableVisits { get; set; }
+
+        public virtual Package Package { get; set; }
 	}
 
     public class PackageCultureObjectConfigurationBuilder : IEntityTypeConfiguration<PackageCultureObject>
@@ -37,10 +39,6 @@ namespace Span.Culturio.Api.Data.Entities
             builder.Property(x => x.AvailableVisits)
                 .IsRequired();
 
-
-            builder.HasOne(p => p.Package)
-                .WithMany(b => b.CultureObjects)
-                .HasForeignKey(x => x.PackageId);
         }
     }
 }

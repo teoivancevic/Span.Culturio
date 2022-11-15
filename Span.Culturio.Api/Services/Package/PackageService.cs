@@ -24,11 +24,8 @@ namespace Span.Culturio.Api.Services.Package
         
         public async Task<IEnumerable<PackageDto>> GetPackages()
         {
-            
 
-
-
-            var packages = await _context.Packages.ToListAsync();
+            var packages = await _context.Packages.Include(x => x.CultureObjects).ToListAsync();
 
             var packagesDto = _mapper.Map<List<PackageDto>>(packages);
             return packagesDto;
@@ -36,7 +33,7 @@ namespace Span.Culturio.Api.Services.Package
 
         public async Task<PackageDto> GetPackage(int id)
         {
-            var package = await _context.Packages.FindAsync(id);
+            var package = await _context.Packages.Include(x => x.CultureObjects).Where(x => x.Id.Equals(id)).FirstOrDefaultAsync();
             //package.CultureObjects = await _context.PackageCultureObjects.Where(x => x.Package.Id.Equals(package.Id)).ToListAsync();
             var packageDto = _mapper.Map<PackageDto>(package);
             return packageDto;

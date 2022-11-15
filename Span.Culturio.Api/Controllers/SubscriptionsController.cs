@@ -44,12 +44,20 @@ namespace Span.Culturio.Api.Controllers
 
 		// Ova API metoda radi, ali na ja mislim glup nacin
 		[HttpPost("track-visit")]
-		public async Task<ActionResult> TrackVisit([FromBody] TrackVisitDto trackVisit)
+		public async Task<ActionResult<string>> TrackVisit([FromBody] CreateTrackVisitDto trackVisit)
 		{
 
 			var result = await _subscriptionService.TrackVisit(trackVisit);
-			return Ok();
-		}
+			if (result)
+			{
+                return Ok("Success.");
+
+            }
+			else
+			{
+				return BadRequest("Invalid request. (check if input is correct and if subscription is active)");
+			}
+        }
 		
 
 

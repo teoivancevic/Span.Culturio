@@ -16,6 +16,7 @@ namespace Span.Culturio.Api.Data
         public DbSet<Package> Packages { get; set; }
         public DbSet<PackageCultureObject> PackageCultureObjects { get; set; }
         public DbSet<CultureObject> CultureObjects { get; set; }
+        public DbSet<TrackVisit> TrackVisits { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -49,6 +50,8 @@ namespace Span.Culturio.Api.Data
             */
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            SeedData.CreateData(modelBuilder);
         }
     }
 }

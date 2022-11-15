@@ -3,8 +3,9 @@ namespace Span.Culturio.Api.Models
 {
     public class TrackVisitDto
     {
-        public int subscriptionId { get; set; }
-        public int cultureObjectId { get; set; }
+        public int SubscriptionId { get; set; }
+        public int CultureObjectId { get; set; }
+        public DateTime TimeEntered { get; set; }
     }
 }
 

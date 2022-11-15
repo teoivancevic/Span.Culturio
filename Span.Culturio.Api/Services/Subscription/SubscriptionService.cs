@@ -66,17 +66,44 @@ namespace Span.Culturio.Api.Services.Subscription
             return subscriptionDto;
 		}
 
-		public async Task<TrackVisitDto> TrackVisit(TrackVisitDto trackVisit)
+		public async Task<bool> TrackVisit(CreateTrackVisitDto trackVisit)
 		{
 			//nezz sta ovdije trebam napravit uopce ngl
-			var subscription = await _context.Subscriptions.FindAsync(trackVisit.subscriptionId);
-			subscription.RecordedVisits = subscription.RecordedVisits + 1;
 
-			var cultureObject = await _context.CultureObjects.FindAsync(trackVisit.cultureObjectId);
-			//var package = await _context.Packages.Where(x => x.CultureObjects.Contains(trackVisit.cultureObjectId).FirstOrDefaultAsync();
-			//package.CultureObjects.Where(x => x.Id.Equals(trackVisit.cultureObjectId)).
 
-			return trackVisit;
+
+			var subscription = await _context.Subscriptions.FindAsync(trackVisit.SubscriptionId);
+			var packageCultureObject = await _context.PackageCultureObjects.Where(x => x.PackageId.Equals(subscription.PackageId)).FirstOrDefaultAsync();
+
+			var availableVisits = packageCultureObject.AvailableVisits;
+			var timesVisited = _context.TrackVisits.Count(x => x.SubscriptionId == trackVisit.SubscriptionId && x.CultureObjectId == trackVisit.CultureObjectId);
+
+
+			//var trackVisitDto = new TrackVisitDto();
+
+
+            if (timesVisited < availableVisits && subscription.State == "active")
+			{
+                var trackVisitEntity = _mapper.Map<Data.Entities.TrackVisit>(trackVisit);
+                _context.TrackVisits.Add(trackVisitEntity);
+                await _context.SaveChangesAsync();
+
+				//trackVisitDto = _mapper.Map<TrackVisitDto>(trackVisitEntity);
+				return true;
+
+            }
+			
+
+            //subscription.RecordedVisits = subscription.RecordedVisits + 1;
+
+            //var cultureObject = await _context.CultureObjects.FindAsync(trackVisit.CultureObjectId);
+            //var package = await _context.Packages.Where(x => x.CultureObjects.Contains(trackVisit.cultureObjectId).FirstOrDefaultAsync();
+            //package.CultureObjects.Where(x => x.Id.Equals(trackVisit.cultureObjectId)).
+
+
+
+
+            return false;
 		}
 
 

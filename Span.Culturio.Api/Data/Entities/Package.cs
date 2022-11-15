@@ -29,10 +29,11 @@ namespace Span.Culturio.Api.Data.Entities
             //    .IsRequired();
             builder.Property(x => x.ValidDays)
                 .IsRequired();
-
+            /*
             builder.HasMany(p => p.CultureObjects)
                 .WithOne(b => b.Package)
                 .HasForeignKey(x => x.PackageId);
+            */
         }
     }
 }
