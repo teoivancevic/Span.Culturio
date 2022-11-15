@@ -11,8 +11,10 @@ namespace Span.Culturio.Api.Data.Entities
         public string Name { get; set; }
 
         //nezz dal se ovo ovako radi
-        public ICollection<PackageCultureObject> CultureObjects { get; set; }
+        
         public string ValidDays { get; set; }
+
+        public virtual ICollection<PackageCultureObject> CultureObjects { get; set; }
     }
 
     public class PackageConfigurationBuilder : IEntityTypeConfiguration<Package>
@@ -27,6 +29,10 @@ namespace Span.Culturio.Api.Data.Entities
             //    .IsRequired();
             builder.Property(x => x.ValidDays)
                 .IsRequired();
+
+            builder.HasMany(p => p.CultureObjects)
+                .WithOne(b => b.Package)
+                .HasForeignKey(x => x.PackageId);
         }
     }
 }

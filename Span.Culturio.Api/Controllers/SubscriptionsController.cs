@@ -41,6 +41,8 @@ namespace Span.Culturio.Api.Controllers
 			return subscriptionDto;
 		}
 
+
+		// Ova API metoda radi, ali na ja mislim glup nacin
 		[HttpPost("track-visit")]
 		public async Task<ActionResult> TrackVisit([FromBody] TrackVisitDto trackVisit)
 		{

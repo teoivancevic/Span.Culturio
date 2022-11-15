@@ -23,12 +23,20 @@ namespace Span.Culturio.Api.Data
             /*
             modelBuilder.Entity<PackageCultureObject>()
                 .HasOne(p => p.Package)
-                .WithMany(b => b.CultureObjects);
+                .WithMany(b => b.CultureObjects)
+                .HasForeignKey(x => x.PackageId);
             */
+            modelBuilder.Entity<Package>()
+                .HasMany(p => p.CultureObjects)
+                .WithOne(b => b.Package)
+                .HasForeignKey(x => x.PackageId);
+
+            /*
             modelBuilder.Entity<PackageCultureObject>()
                 .HasOne(p => p.Package)
                 .WithMany()
                 .HasForeignKey(x => x.PackageId);
+            */
             /*
             modelBuilder.Entity<Package>()
                 .HasMany(p => p.CultureObjects)

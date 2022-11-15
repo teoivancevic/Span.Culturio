@@ -29,6 +29,11 @@ namespace Span.Culturio.Api.Controllers
             return Ok(packages);
         }
 
+        /*
+         * Ove tri API metode ne rade jer nisam uspio povezati tablicu PackageCultureObjects s tablicom Packages
+         * 
+         * Umjesto toga napravio sam seed data za Packages u PackagesService za GetPackages
+         */
         [HttpGet("{id}")]
         public async Task<ActionResult<PackageDto>> GetPackage(int id)
         {
@@ -43,13 +48,14 @@ namespace Span.Culturio.Api.Controllers
             return Ok(package);
         }
 
-
+        
         [HttpPost("culture-object")]
         public async Task<ActionResult<PackageCultureObjectDto>> CreatePackageCultureObject([FromBody] CreatePackageCultureObjectDto packageCultureObject)
         {
             await _packageService.CreatePackageCultureObject(packageCultureObject);
             return Ok(packageCultureObject);
         }
+        
 
 
     }

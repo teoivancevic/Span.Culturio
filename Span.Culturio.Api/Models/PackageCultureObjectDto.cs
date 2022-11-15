@@ -14,7 +14,9 @@ namespace Span.Culturio.Api.Models
 
         [ForeignKey("Package")]
         public int PackageId { get; set; }
-        public PackageDto Package { get; set; }
+        //public PackageDto Package { get; set; }
+
+        public virtual PackageDto Package { get; set; }
     }
 }
 

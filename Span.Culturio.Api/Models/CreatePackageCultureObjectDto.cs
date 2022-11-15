@@ -8,6 +8,8 @@ namespace Span.Culturio.Api.Models
         public int PackageId { get; set; }
         public int AvailableVisits { get; set; }
 
+        //public virtual PackageDto Package { get; set; }
+
         //public PackageDto Package { get; set; }
     }
 }
