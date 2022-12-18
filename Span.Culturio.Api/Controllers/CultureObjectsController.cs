@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Span.Culturio.Api.Models;
 using Span.Culturio.Api.Services.CultureObject;
@@ -8,6 +9,8 @@ namespace Span.Culturio.Api.Controllers
 {
     [Route("/api/[controller]")]
     [ApiController]
+    [Authorize]
+
     public class CultureObjectsController : ControllerBase
 	{
         private readonly ILogger _logger;
